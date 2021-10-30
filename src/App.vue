@@ -14,7 +14,7 @@
       <div class="innerContainer">
 
        <card v-for="(image,index) in imgUrls" :key="image.id" :imgUrl="image.urls.small" :imgUrlFullResolution="image.urls.full" :description="this.description[index]" :explanation="this.explanations.length >0 ?  this.explanations[index].explanation : 'empty'" :alt="image.id" btnClass="fa fa-download" />
-
+         <p v-if="imgUrls.length <= 0"> It seems we cound't load the images. Please try again in a few minutes.. </p>
       </div>
     </div>
   </div>
@@ -52,9 +52,10 @@ export default {
       try{
         const res = await axios.get(this.url + `?client_id=${this.accessKey}`+`&page=${this.$store.state.page}`)
         this.imgUrls = res.data;
-        console.log(res.data)
+        console.debug(res.data)
        
       }catch(err){
+        console.log('unsplash saatte 50 foto gösteriyor..');
         console.log(err);
       }
     },
@@ -162,6 +163,7 @@ export default {
 }
 .container{
   margin-top: 30px;
+  height: 100%;
   width: 80%;
   display: flex;
   flex-direction:column;
@@ -172,6 +174,7 @@ export default {
 .innerContainer{
   margin-top: 30px;
   width: 80%;
+  height: 100%;
   display: flex;
   flex-direction:row;
   flex-wrap: wrap;
