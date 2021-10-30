@@ -1,7 +1,7 @@
 <template>
     <div class="pages" :id="$store.state.toggleSwitchStatus !== true ? 'default' : 'dark'" >
         <Button faClass="fa fa-arrow-left" @click="subtractFromPage" />
-        <input class="pageWrapper" type="text" v-model="$store.state.page" :id="$store.state.toggleSwitchStatus !== true ? 'default' : 'dark'"/>
+        <input class="pageInput" type="number" v-model="$store.state.page" :id="$store.state.toggleSwitchStatus !== true ? 'default' : 'dark'"/>
         <Button faClass="fa fa-arrow-right" @click="addToPage" />
     </div>
 </template>
@@ -15,10 +15,10 @@ export default {
     },
     methods:{
         addToPage(state,payload){
-            this.$store.state.page = this.$store.state.page + 1
+            this.$store.state.page = parseInt(this.$store.state.page) + 1
         },
         subtractFromPage(state,payload){
-            this.$store.state.page = this.$store.state.page - 1
+            this.$store.state.page = parseInt(this.$store.state.page) - 1
         }
     }
     
@@ -30,12 +30,21 @@ export default {
         background-color: black;
         margin: 0;
     }
-    .pageWrapper{
+    .pageInput{
         width: 30px;
         text-align: center;
         border: none;
         font-weight: 700;
     }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+
     #dark{
     color: white;
     }
