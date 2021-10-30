@@ -1,23 +1,26 @@
-import Vuex from 'vuex';
-import Vue from 'vue';
-import Card from './modules/card';
+// import Vuex from 'vuex';
+// import Vue from 'vue';
+// import Card from './modules/card';
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
-export default new Vuex.Store({
-    state:{        
-        toggleSwitchStatus:true,
-    },
-    getters:{
+// export default new Vuex.Store({
+//     state(){     
+//         return{
+//             toggleSwitchStatus:false,
+//             page:1,
+//         }   
+//     },
+//     getters:{
         
-    },
-    mutations:{
+//     },
+//     mutations:{
 
-    },
-    actions:{
+//     },
+//     actions:{
 
-    },
-    modules:{
-        Card
-    }
-})
+//     },
+//     modules:{
+//         Card
+//     }
+// })

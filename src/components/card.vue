@@ -8,7 +8,8 @@
         </div>
         <div class="footer">
             <div class="buttons">
-            <Button @downloadImage="$emit('downloadImage',image.id)" :faClass="btnClass"/>
+            <Button @downloadImage="$emit('downloadImage',image.id)" 
+            :faClass="btnClass"/>
 
             </div>
         </div>
@@ -48,6 +49,7 @@ export default {
 }
 .content{
     padding: 5px;
+    position: relative;
 }
 .card img{
     margin: 5px;
@@ -65,6 +67,7 @@ export default {
     left: 25px;
 }
 .footer{
+    position: absolute;
     height: 50px;
     width: 100%;
     border-bottom-left-radius: 20px;
@@ -76,11 +79,8 @@ export default {
     float: right;
     padding: 0;
     border-radius: 20px;
-    
-}
-.footer .buttons:hover{
-    background-color: white;
     color: #74F6A7;
     
 }
+
 </style>

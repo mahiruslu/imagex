@@ -5,10 +5,12 @@ import App from './App.vue'
 
 const store = createStore({
      state(){
-         return{
-            toggleSwitchStatus:false,
-         }
-     }
+          return{
+               toggleSwitchStatus:false,
+               page:1,
+          }
+     },
+
 })
 
 const app = createApp(App);
