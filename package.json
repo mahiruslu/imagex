@@ -5,12 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "crypto-random-string": "^4.0.0",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1",
     "unsplash-js": "^7.0.15",
     "v-lazy-image": "^2.0.1",
     "vue": "^3.0.0",
