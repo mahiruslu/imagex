@@ -8,10 +8,14 @@
         </div>
     </div>
     <div class="container">
-      <Pages />
-      <card v-for="(image,index) in imgUrls" :key="image.id" :imgUrl="image.urls.small" 
-      :description="this.description[index]" :explanation="this.explanations.length >0 ?  this.explanations[index].explanation : 'empty'" :alt="image.id" btnClass="fa fa-download" />
+      <div class="topContainer">
+        <Pages />
+      </div>
+      <div class="innerContainer">
 
+       <card v-for="(image,index) in imgUrls" :key="image.id" :imgUrl="image.urls.small" :imgUrlFullResolution="image.urls.full" :description="this.description[index]" :explanation="this.explanations.length >0 ?  this.explanations[index].explanation : 'empty'" :alt="image.id" btnClass="fa fa-download" />
+
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +41,8 @@ export default {
       accessKey:'Rap3jucUeb35yLQQLOnBa_dOpylxLe8v8eovS-7TXY4',
       url:`https://api.unsplash.com/photos`,
       imgUrls:[],
+      //for download images high resolution
+      imgUrlFullResolution:[],
       description:[],
       explanations:[],
     }
@@ -46,6 +52,7 @@ export default {
       try{
         const res = await axios.get(this.url + `?client_id=${this.accessKey}`+`&page=${this.$store.state.page}`)
         this.imgUrls = res.data;
+        console.log(res.data)
        
       }catch(err){
         console.log(err);
@@ -133,7 +140,7 @@ export default {
   top:0;
   position: fixed;
   width: 100%;
-  height: 80px;
+  height: 90px;
   background-color: rgba(0, 0, 0, 1);
   display: flex;
   flex-direction:row;
@@ -154,6 +161,15 @@ export default {
 
 }
 .container{
+  margin-top: 30px;
+  width: 80%;
+  display: flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.innerContainer{
   margin-top: 30px;
   width: 80%;
   display: flex;
