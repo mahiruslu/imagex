@@ -8,7 +8,7 @@
         </div>
         <div class="footer">
             <div class="buttons">
-            <Button @downloadImage="$emit('downloadImage',image.id)" 
+            <Button @click="downloadImage(imgUrlFullResolution)" 
             :faClass="btnClass"/>
 
             </div>
@@ -18,16 +18,42 @@
 
 <script>
 import Button from './button.vue'
+import axios from 'axios'
 export default {
     props:{
         msg: String,
         imgUrl: String,
+        imgUrlFullResolution: String,
         description: String,
         explanation: String,
         btnClass: String,
     },
     components:{
         Button
+    },
+    methods:{
+    async downloadImage(url){
+        console.log(url)
+      var base64 = await axios.get(url,{
+        responseType:"blob"
+      }).then(res=>{
+        var fileURL = window.URL.createObjectURL(new Blob([res.data]));
+        var fileLink = document.createElement('a');
+        console.log(res);
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', `${this.description}.jpeg`);
+        document.body.appendChild(fileLink);
+    
+        fileLink.click();
+
+      }).catch(err=>{
+          console.log(err);
+          console.log('hey');
+      });
+      var img = new Image();
+      img.src = "data:image/jpeg;base64, "+ base64
+    }
     }
 }
 </script>

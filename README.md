@@ -1,4 +1,4 @@
-# vbt-project
+# imagex
 
 ## Project setup
 ```
