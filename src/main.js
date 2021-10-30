@@ -1,4 +1,19 @@
 import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import App from './App.vue'
+// import store from './store'
 
-createApp(App).mount('#app')
+const store = createStore({
+     state(){
+          return{
+               toggleSwitchStatus:false,
+               page:1,
+          }
+     },
+
+})
+
+const app = createApp(App);
+app.use(store)
+
+app.mount('#app')

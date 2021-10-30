@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "crypto-random-string": "^4.0.0",
     "unsplash-js": "^7.0.15",
     "v-lazy-image": "^2.0.1",
     "vue": "^3.0.0",
@@ -36,7 +37,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",
