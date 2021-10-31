@@ -103,7 +103,7 @@ export default {
 }
 .footer .buttons{
     float: right;
-    padding: 0;
+    padding: 0 10px;
     border-radius: 20px;
     color: #74F6A7;
     

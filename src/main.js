@@ -8,6 +8,7 @@ const store = createStore({
           return{
                toggleSwitchStatus:false,
                page:1,
+               searchString:'',
           }
      },
 
