@@ -4,8 +4,9 @@
       <div class="navbar">
         <div class="logo">Imagex</div>
         <div class="navbarOptions">
+          <Input :placeHolder="'Search..'" />
           <toggleSwitch />
-        </div>
+      </div>
     </div>
     <div class="container">
       <div class="topContainer">
@@ -23,6 +24,7 @@
 <script>
 import card from './components/card.vue'
 import toggleSwitch from './components/toggleSwitch.vue'
+import Input from './components/input.vue'
 import axios from 'axios'
 import {mapState,mapMutations} from 'vuex'
 import Pages from './components/pages.vue'
@@ -34,12 +36,14 @@ export default {
     // eslint-disable-next-line vue/no-unused-components
     card,
     toggleSwitch,
-    Pages
+    Pages,
+    Input
   },
   data(){
     return{
       accessKey:'Rap3jucUeb35yLQQLOnBa_dOpylxLe8v8eovS-7TXY4',
       url:`https://api.unsplash.com/photos`,
+      urlSearch:`https://api.unsplash.com/search/photos`,
       imgUrls:[],
       //for download images high resolution
       imgUrlFullResolution:[],
@@ -50,9 +54,14 @@ export default {
   methods:{
     async getImages() {
       try{
-        const res = await axios.get(this.url + `?client_id=${this.accessKey}`+`&page=${this.$store.state.page}`)
-        this.imgUrls = res.data;
-        console.debug(res.data)
+        if(this.$store.state.searchString.length <= 1 )
+        {
+          const res = await axios.get(this.url + `?client_id=${this.accessKey}`+`&page=${this.$store.state.page}&query=${this.$store.state.searchString}`)
+          this.imgUrls = res.data;
+        }else{
+          const res = await axios.get(this.urlSearch + `?client_id=${this.accessKey}`+`&page=${this.$store.state.page}&query=${this.$store.state.searchString}`)
+          this.imgUrls = res.data.results;
+        }
        
       }catch(err){
         console.log('unsplash saatte 50 foto gösteriyor..');
@@ -74,22 +83,12 @@ export default {
       }
     },
     uniqueId(){
+      this.description=[];
       for(var i= 0; i<10;i++){
-
         this.description.push('#'+cryptoRandomString({length: 4, type: 'numeric'}) + '-Resim');
       }
-    },
-    async downloadImage(url){
-      url = this.imgUrls[0];
-      var base64 = await axios.get(url,{
-        responseType:"arraybuffer"
-      }).then(res=>{
-        Buffer.from(res.data,"binary").toString('base64')
-      }).catch(err=>console.log(err));
-      var img = new Image();
-      img.src = "data:image/jpeg;base64, "+ base64
     }
-  
+
   },
   created(){
     this.getDatas();
@@ -97,13 +96,20 @@ export default {
     this.uniqueId();
   },
   computed:{
-    ...mapState(['page']),
+    ...mapState(['page','searchString']),
   },
   watch: {
     page(newValue,oldValue){
+      console.log(newValue)
       this.getDatas();
       this.getImages();
-
+      this.uniqueId();
+    },
+    searchString(newValue,oldValue){
+      console.log(newValue)
+      this.getDatas();
+      this.getImages();
+      this.uniqueId();
     }
   },
   
@@ -158,6 +164,10 @@ export default {
   color: white;
 }
 .navbarOptions{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  align-items: center;
   float: right;
 
 }
@@ -171,6 +181,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .innerContainer{
   margin-top: 30px;
   width: 80%;
@@ -179,5 +190,14 @@ export default {
   flex-direction:row;
   flex-wrap: wrap;
   justify-content: center;
+  animation: 2s backwards 0s 1 slideInFromBottom;
+}
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 </style>
